@@ -4,8 +4,8 @@ public class Food extends Products {
     private int grams;
 
 
-    public Food(String name, int portions, int grams) {
-        super(name, portions);
+    public Food(String name, int portions, int price, int grams) {
+        super(name, portions, price);
         this.grams = grams;
     }
 
@@ -15,5 +15,13 @@ public class Food extends Products {
 
     public void setGrams(int grams) {
         this.grams = grams;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                super.toString() +
+                "grams=" + grams +
+                '}';
     }
 }

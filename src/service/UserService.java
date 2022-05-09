@@ -24,15 +24,38 @@ public class UserService {
         m_basket.put(user,basket);
         m_historyCommands.put(user, history);
     }
+
+    public Users identifyUserByEmail(String email){
+        for(Map.Entry<Users, List<Products>> entry : m_basket.entrySet()){
+            if(Objects.equals(email, entry.getKey().getM_email())){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public void selectRestaurant(Users user, Venues venues){
+        //Users user = identifyUserByEmail(userEmail);
+        user.setM_onRestaurant(venues);
+    }
+    public void showUsers(){
+        for(Map.Entry<Users, List<Products>> entry : m_basket.entrySet()){
+            System.out.println(entry.getKey());
+        }
+    }
+
     public void addPoductInBasket(Users user, Products product){
+        //Users user = identifyUserByEmail(userEmail);
         m_basket.get(user).add(product);
     }
 
     public void removeProductFromBasket(Users user, Products product){
+        //Users user = identifyUserByEmail(userEmail);
         m_basket.get(user).remove(product);
     }
 
     public Orders placeOrder(Users user){
+        //Users user = identifyUserByEmail(userEmail);
         List<Products> actual_basket = new ArrayList<>();
         //actual_basket = m_basket.get(user);
 

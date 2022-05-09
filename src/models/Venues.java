@@ -42,7 +42,12 @@ public class Venues {
         this.name = name;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Venues{" +
+                "name='" + name + '\'' +
+                ", m_x=" + m_x +
+                ", m_y=" + m_y +
+                '}';
+    }
 }
