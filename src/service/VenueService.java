@@ -19,11 +19,28 @@ public class VenueService {
         List<Products> list = new ArrayList<>();
         m_restaurants.put(venue,list);
    }
-   public void addProductToMenu(Venues venue, Products product, Integer price){
-        product.setPrice(price);
+   public void addProductToMenu(Venues venue, Products product){
         m_restaurants.get(venue).add(product);
    }
 
+   public Venues identifyVenueByName(String venueName){
+        for(Map.Entry<Venues, List<Products>> entry : m_restaurants.entrySet()){
+            if(Objects.equals(venueName, entry.getKey().getName())){
+                return entry.getKey();
+            }
+        }
+        return null;
+   }
+
+   public Products identifyProductFromMenuByName(Venues venue, String productName){
+        for(Products product : m_restaurants.get(venue)){
+            if(Objects.equals(productName, product.getName())){
+                return product;
+            }
+        }
+        return null;
+
+   }
    public void deleteProductFromMenu(Venues venue, Products product){
         m_restaurants.get(venue).remove(product);
    }
@@ -59,6 +76,13 @@ public class VenueService {
         return restaurants;
     }
 
-
+    public void showVenues(){
+        for(Map.Entry<Venues, List<Products>> entry : m_restaurants.entrySet()){
+            System.out.println(entry.getKey());
+            for(Products product : entry.getValue()){
+                System.out.println(product);
+            }
+        }
+    }
 
 }

@@ -27,4 +27,13 @@ public class CarDeliver extends Delivers{
     public void setM_speed(Integer m_speed) {
         this.m_speed = m_speed;
     }
+
+    @Override
+    public String toString() {
+        return "CarDeliver{" +
+                super.toString() +
+                "m_commission=" + m_commission +
+                ", m_speed=" + m_speed +
+                '}';
+    }
 }

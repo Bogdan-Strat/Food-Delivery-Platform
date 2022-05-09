@@ -58,4 +58,15 @@ public class Delivers {
     public void addMoney(BigDecimal money){
         m_money.add(money);
     }
+
+    @Override
+    public String toString() {
+        return "Delivers{" +
+                "m_name='" + m_name + '\'' +
+                ", m_x=" + m_x +
+                ", m_y=" + m_y +
+                ", m_free=" + m_free +
+                ", m_money=" + m_money +
+                '}';
+    }
 }

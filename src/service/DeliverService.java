@@ -1,9 +1,6 @@
 package service;
 
-import models.BikeDeliver;
-import models.CarDeliver;
-import models.Delivers;
-import models.Orders;
+import models.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -66,12 +63,14 @@ public class DeliverService {
             BigDecimal time = BigDecimal.valueOf(((BikeDeliver) deliver).getM_speed() / distance);
             BigDecimal money = time.multiply(BigDecimal.valueOf(0.8));
             deliver.addMoney(money);
+            deliver.addMoney(((BikeDeliver) deliver).getM_commission());
         }
 
         else if(deliver instanceof CarDeliver){
             BigDecimal time = BigDecimal.valueOf(((CarDeliver) deliver).getM_speed() / distance);
             BigDecimal money = time.multiply(BigDecimal.valueOf(1.2));
             deliver.addMoney(money);
+            deliver.addMoney(((CarDeliver) deliver).getM_commission());
         }
     }
 
@@ -107,6 +106,12 @@ public class DeliverService {
 
         return 0;
 
+    }
+
+    public void showDelivers(){
+        for(Map.Entry<Delivers, List<Orders>> entry : m_orders.entrySet()){
+            System.out.println(entry.getKey());
+        }
     }
 
 }

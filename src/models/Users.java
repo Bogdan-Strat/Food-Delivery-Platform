@@ -67,4 +67,16 @@ public class Users {
     public void setM_onRestaurant(Venues m_onRestaurant) {
         this.m_onRestaurant = m_onRestaurant;
     }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "m_name='" + m_name + '\'' +
+                ", m_password='" + m_password + '\'' +
+                ", m_email='" + m_email + '\'' +
+                ", m_x=" + m_x +
+                ", m_y=" + m_y +
+                ", m_onRestaurant=" + m_onRestaurant +
+                '}';
+    }
 }

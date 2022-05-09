@@ -2,11 +2,13 @@ package models;
 
 public class Products {
     protected String name;
-    protected int price;
+    protected Integer portions;
+    protected Integer price;
 
-    public Products(String name,int portions) {
+    public Products(String name,int portions, int price) {
         this.name = name;
-        this.price =portions;
+        this.portions =portions;
+        this.price = price;
     }
 
     public String getName() {
@@ -23,5 +25,14 @@ public class Products {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "name='" + name + '\'' +
+                ", portions=" + portions +
+                ", price=" + price +
+                '}';
     }
 }
