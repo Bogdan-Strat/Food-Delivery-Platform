@@ -17,7 +17,7 @@ public class UserService {
         m_basket = new HashMap<>();
     }
 
-    public void addUser(Users user){
+    public void signUp(Users user){
         List<Products> basket = new ArrayList<>();
         List<List<Products>> history = new ArrayList<>();
         //history.add(basket);
@@ -25,6 +25,29 @@ public class UserService {
         m_historyCommands.put(user, history);
     }
 
+    public Users logIn(){
+        System.out.print("Email: ");
+        Scanner sc = new Scanner(System.in);
+        String email =sc.next();
+
+        Users user = identifyUserByEmail(email);
+        if (user != null){
+            System.out.println("Password: ");
+            String password = sc.next();
+            if(Objects.equals(password, user.getM_password())){
+                System.out.println("Welcome " + user.getM_name());
+                return user;
+            }
+            else{
+                System.out.println("Password incorrect. Try to log in again.");
+                return null;
+            }
+        }
+        else{
+            System.out.println("Your email isn't in our database. TRy to Sign Up to our platform.");
+            return null;
+        }
+    }
     public Users identifyUserByEmail(String email){
         for(Map.Entry<Users, List<Products>> entry : m_basket.entrySet()){
             if(Objects.equals(email, entry.getKey().getM_email())){
@@ -69,8 +92,6 @@ public class UserService {
 
         Orders order = new Orders(user, user.getM_onRestaurant(), actual_basket);
 
-        Random rand =  new Random();
-        order.setM_time(rand.nextInt());
 
         return order;
     }
