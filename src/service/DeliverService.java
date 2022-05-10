@@ -1,8 +1,10 @@
 package service;
 
+import com.sun.security.jgss.GSSUtil;
 import models.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class DeliverService {
@@ -23,13 +25,8 @@ public class DeliverService {
     }
 
     public void takeOrder(Delivers deliver, Orders order){
-        deliver.setM_x(order.getM_venue().getM_x());
-        deliver.setM_y(order.getM_venue().getM_y());
-        deliver.setM_free(Boolean.FALSE);
-
-        m_orders.get(deliver).add(order);
-
         Integer deliver_x, deliver_y, venue_x, venue_y;
+
         deliver_x = deliver.getM_x();
         deliver_y = deliver.getM_y();
         venue_x = order.getM_venue().getM_x();
@@ -37,14 +34,14 @@ public class DeliverService {
 
         increaseMoney(deliver, deliver_x, deliver_y, venue_x, venue_y);
 
+        deliver.setM_x(order.getM_venue().getM_x());
+        deliver.setM_y(order.getM_venue().getM_y());
+        deliver.setM_free(Boolean.FALSE);
+        m_orders.get(deliver).add(order);
+
     }
 
     public void deliverOrder(Delivers deliver, Orders order){
-        deliver.setM_x(order.getM_user().getM_x());
-        deliver.setM_y(order.getM_user().getM_y());
-
-        deliver.setM_free(Boolean.TRUE);
-
         Integer deliver_x, deliver_y, venue_x, venue_y;
         deliver_x = deliver.getM_x();
         deliver_y = deliver.getM_y();
@@ -53,35 +50,53 @@ public class DeliverService {
 
         increaseMoney(deliver, deliver_x, deliver_y, venue_x, venue_y);
 
+        deliver.setM_x(order.getM_user().getM_x());
+        deliver.setM_y(order.getM_user().getM_y());
+
+        deliver.setM_free(Boolean.TRUE);
+
     }
 
     public void increaseMoney(Delivers deliver, Integer deliver_x, Integer deliver_y, Integer venue_x, Integer venue_y) {
         Integer distance =  distance(deliver_x, deliver_y, venue_x, venue_y);
 
         if(deliver instanceof BikeDeliver)
-        {
-            BigDecimal time = BigDecimal.valueOf(((BikeDeliver) deliver).getM_speed() / distance);
+        {   BigDecimal time;
+            if(distance != 0){
+              time = BigDecimal.valueOf(((CarDeliver) deliver).getM_speed()).divide(BigDecimal.valueOf(distance), 2);
+            }
+            else{
+               time  = BigDecimal.valueOf(0);
+            }
+
             BigDecimal money = time.multiply(BigDecimal.valueOf(0.8));
-            deliver.addMoney(money);
-            deliver.addMoney(((BikeDeliver) deliver).getM_commission());
+            money = money.add(deliver.getM_money());
+            money = money.add(((BikeDeliver) deliver).getM_commission());
+            deliver.setM_money(money);
         }
 
         else if(deliver instanceof CarDeliver){
-            BigDecimal time = BigDecimal.valueOf(((CarDeliver) deliver).getM_speed() / distance);
+            BigDecimal time;
+            if(distance != 0){
+                time = BigDecimal.valueOf(((CarDeliver) deliver).getM_speed()).divide(BigDecimal.valueOf(distance), 2);
+            }
+            else{
+                time  = BigDecimal.valueOf(0);
+            }
             BigDecimal money = time.multiply(BigDecimal.valueOf(1.2));
-            deliver.addMoney(money);
-            deliver.addMoney(((CarDeliver) deliver).getM_commission());
+            money = money.add(deliver.getM_money());
+            money = money.add(((CarDeliver) deliver).getM_commission());
+            deliver.setM_money(money);
         }
     }
 
-    public int asigneeDeliver(Orders order){
+    public Delivers asigneeDeliver(Orders order){
         Integer order_x = order.getM_venue().getM_x();
         Integer order_y = order.getM_venue().getM_y();
 
         Integer deliver_x, deliver_y, distance_min=100000, distance;
 
         Delivers deliver = new Delivers();
-
 
         for(Map.Entry<Delivers, List<Orders>> entry : m_orders.entrySet()){
             if(entry.getKey().getM_free() == Boolean.TRUE){
@@ -101,10 +116,10 @@ public class DeliverService {
 
         if(deliver.getM_name() != "None"){
             order.setM_deliver(deliver);
-            return 1;
+            return deliver;
         }
 
-        return 0;
+        return null;
 
     }
 
