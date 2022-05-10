@@ -1,0 +1,20 @@
+//the purpose of this file is only for giving actions to be read from keyboard
+LogIn
+12@gmail.com
+1234
+--SeeRestaurants
+SelectRestaurant Burger Elite
+AddBasket Burger Suprem
+PlaceOrder
+--You have to pay:
+HireCar/BikeDeliver Maguran George -5 8 13
+AddMenu Kfc Drink Sos de ustoroi 200 3 50
+LogIn
+--SeeRestaurants
+SelectRestaurant Kfc
+AddBasket Hot Buster
+AddBasket Hot Buster
+AddBaket Sos de usturoi
+RemoveBasket Hot Buster
+PlaceOrder
+--You have to pay

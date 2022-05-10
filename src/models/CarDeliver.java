@@ -28,6 +28,11 @@ public class CarDeliver extends Delivers{
         this.m_speed = m_speed;
     }
 
+    public void addMoney(BigDecimal money){
+        m_money.add(money);
+        m_money.add(m_commission);
+    }
+
     @Override
     public String toString() {
         return "CarDeliver{" +

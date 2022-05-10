@@ -62,4 +62,16 @@ public class Orders {
     public void setM_time(Integer m_time) {
         this.m_time = m_time;
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "m_id=" + m_id +
+                ", m_user=" + m_user +
+                ", m_deliver=" + m_deliver +
+                ", m_venue=" + m_venue +
+                ", m_time=" + m_time +
+                ", m_command=" + m_command +
+                '}';
+    }
 }
