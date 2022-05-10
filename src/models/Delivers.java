@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.Queue;
 
 public class Delivers {
-    private String m_name;
-    private Integer m_x;
-    private Integer m_y;
-    private Boolean m_free;
-
-    private BigDecimal m_money;
+    protected String m_name;
+    protected Integer m_x;
+    protected Integer m_y;
+    protected Boolean m_free;
+    protected BigDecimal m_money;
 
 
     public Delivers(){
@@ -57,6 +56,14 @@ public class Delivers {
 
     public void addMoney(BigDecimal money){
         m_money.add(money);
+    }
+
+    public BigDecimal getM_money() {
+        return m_money;
+    }
+
+    public void setM_money(BigDecimal m_money) {
+        this.m_money = m_money;
     }
 
     @Override

@@ -28,6 +28,10 @@ public class BikeDeliver extends Delivers{
         this.m_speed = m_speed;
     }
 
+    public void addMoney(BigDecimal money){
+        m_money.add(money);
+    }
+
     @Override
     public String toString() {
         return "BikeDeliver{" +
